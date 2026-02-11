@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +14,31 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        User::updateOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'System Admin',
+                'password' => Hash::make('password123'),
+                'role' => User::ROLE_ADMIN,
+            ]
+        );
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::updateOrCreate(
+            ['email' => 'teacher@example.com'],
+            [
+                'name' => 'Default Teacher',
+                'password' => Hash::make('password123'),
+                'role' => User::ROLE_TEACHER,
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'student@example.com'],
+            [
+                'name' => 'Default Student',
+                'password' => Hash::make('password123'),
+                'role' => User::ROLE_STUDENT,
+            ]
+        );
     }
 }

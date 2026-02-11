@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AdminController extends Controller
 {
-    public function dashboard()
+    public function dashboard(): View
     {
         return view('dashboard');
     }
 
-    public function studentRegister()
+    public function studentRegister(): View
     {
-        return view('student_register');
+        return view('student.student_register');
     }
 }

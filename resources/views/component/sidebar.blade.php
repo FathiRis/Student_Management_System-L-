@@ -1,108 +1,116 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-        <!--begin::Sidebar Brand-->
-        <div class="sidebar-brand">
-          <!--begin::Brand Link-->
-          <a href="" class="brand-link">
-            <!--begin::Brand Image-->
+    <div class="sidebar-brand">
+        <a href="{{ route('dashboard') }}" class="brand-link">
             <img
-              src="{{ asset('assets/img/AdminLTELogo.png')}}"
-              alt="AdminLTE Logo"
-              class="brand-image opacity-75 shadow"
+                src="{{ asset('assets/img/AdminLTELogo.png') }}"
+                alt="AdminLTE Logo"
+                class="brand-image opacity-75 shadow"
             />
-            <!--end::Brand Image-->
-            <!--begin::Brand Text-->
             <span class="brand-text fw-light">@stack('side_head')</span>
-            <!--end::Brand Text-->
-          </a>
-          <!--end::Brand Link-->
-        </div>
-        <!--end::Sidebar Brand-->
-        <!--begin::Sidebar Wrapper-->
-        <div class="sidebar-wrapper">
-          <nav class="mt-2">
-            <!--begin::Sidebar Menu-->
+        </a>
+    </div>
+
+    <div class="sidebar-wrapper">
+        <nav class="mt-2">
             <ul
-              class="nav sidebar-menu flex-column"
-              data-lte-toggle="treeview"
-              role="menu"
-              data-accordion="false"
+                class="nav sidebar-menu flex-column"
+                data-lte-toggle="treeview"
+                role="menu"
+                data-accordion="false"
             >
-              <li class="nav-item menu-open">
-                <a href="#" class="nav-link active">
-                  <p>
-                    Student
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{ route('student.register') }}" class="nav-link active">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Student Register</p>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard') }}" class="nav-link">
+                        <i class="nav-icon bi bi-speedometer2"></i>
+                        <p>Dashboard</p>
                     </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./index2.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Student Addmission</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./index3.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Student List</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
+                </li>
 
-              <li class="nav-item menu-open">
-                <a href="#" class="nav-link active">
-                  <p>
-                    Teacher
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./index.html" class="nav-link active">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Teacher Register</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./index3.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Teacher List</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
+                @if(auth()->user()?->role === \App\Models\User::ROLE_ADMIN)
 
-              <li class="nav-item menu-open">
-                <a href="#" class="nav-link active">
-                  <p>
-                    Exam
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./index.html" class="nav-link active">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Exam Addmission</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./index2.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Addmission  List</p>
-                    </a>
-                  </li>
-                </ul>
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
+                            <p>
+                                Student
+                                <i class="nav-arrow bi bi-chevron-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('student.register') }}" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Student Register</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                               <a href="#" class="nav-link"> 
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Students List</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Students Admission</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    
+
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
+                            <p>
+                                Teacher
+                                <i class="nav-arrow bi bi-chevron-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Teacher Register</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Teachers List</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
+                            <p>
+                                Examinations
+                                <i class="nav-arrow bi bi-chevron-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Exam Admssions</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Exam Reports </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                @endif
             </ul>
-            <!--end::Sidebar Menu-->
-          </nav>
-        </div>
-        <!--end::Sidebar Wrapper-->
-      </aside>
+
+            <form action="{{ route('logout') }}" method="POST" class="px-3 mt-3">
+                @csrf
+                <button type="submit" class="btn btn-danger btn-sm w-100">Logout</button>
+            </form>
+        </nav>
+    </div>
+</aside>
