@@ -28,6 +28,23 @@
         }
       });
     }
+
+    const body = document.body;
+    const themeKey = 'admin-theme';
+    const savedTheme = localStorage.getItem(themeKey);
+    if (savedTheme === 'dark') {
+      body.classList.add('dark-mode');
+      body.setAttribute('data-bs-theme', 'dark');
+    }
+
+    const toggleBtn = document.getElementById('themeToggleBtn');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function () {
+        const dark = body.classList.toggle('dark-mode');
+        body.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+        localStorage.setItem(themeKey, dark ? 'dark' : 'light');
+      });
+    }
   });
 </script>
 </body>

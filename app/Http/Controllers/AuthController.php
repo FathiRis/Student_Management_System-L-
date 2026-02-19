@@ -22,12 +22,15 @@ class AuthController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+        $user = User::where('email', $credentials['email'])->first();
+
+        if (! $user || $user->password !== $credentials['password']) {
             return back()
                 ->withErrors(['email' => 'Invalid email or password.'])
                 ->onlyInput('email');
         }
 
+        Auth::login($user, $request->boolean('remember'));
         $request->session()->regenerate();
 
         return redirect()->intended($this->routeForRole(Auth::user()->role));

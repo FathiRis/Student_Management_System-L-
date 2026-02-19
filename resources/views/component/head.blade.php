@@ -45,6 +45,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/adminlte.css')}}" />
     <!--end::Required Plugin(AdminLTE)-->
     <!-- apexcharts -->
+    <link rel="stylesheet" href="{{ asset('assets/css/Student/dashboard.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/Student/student-ui.css') }}" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
