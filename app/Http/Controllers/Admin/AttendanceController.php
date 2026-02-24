@@ -15,11 +15,11 @@ class AttendanceController extends Controller
 {
     public function index(): View
     {
-        $attendances = Attendance::with(['student:id,student_name', 'classRoom:id,name,section'])
+        $attendances = Attendance::with(['student:id,student_name,grade', 'classRoom:id,name,section'])
             ->latest('attendance_date')
             ->paginate(15);
 
-        $students = Student::orderBy('student_name')->get(['id', 'student_name']);
+        $students = Student::orderBy('student_name')->get(['id', 'student_name', 'index_no', 'grade']);
         $classRooms = ClassRoom::orderBy('name')->get(['id', 'name', 'section']);
 
         return view('admin.attendance.index', compact('attendances', 'students', 'classRooms'));
@@ -29,7 +29,7 @@ class AttendanceController extends Controller
     {
         $payload = $request->validate([
             'student_id' => ['required', 'exists:students,id'],
-            'class_room_id' => ['required', 'exists:class_rooms,id'],
+            'class_room_id' => ['nullable', 'exists:class_rooms,id'],
             'attendance_date' => ['required', 'date'],
             'status' => ['required', 'in:present,absent,late'],
         ]);
@@ -37,7 +37,7 @@ class AttendanceController extends Controller
 
         $attendance = Attendance::updateOrCreate([
             'student_id' => $payload['student_id'],
-            'class_room_id' => $payload['class_room_id'],
+            'class_room_id' => $payload['class_room_id'] ?? null,
             'attendance_date' => $payload['attendance_date'],
         ], $payload);
 

@@ -12,12 +12,22 @@
                     <select name="student_id" id="student_id" class="form-select" required>
                         <option value="">Student</option>
                         @foreach($students as $student)
-                            <option value="{{ $student->id }}" data-index="{{ $student->index_no }}">{{ $student->student_name }} ({{ $student->index_no }})</option>
+                            <option
+                                value="{{ $student->id }}"
+                                data-index="{{ $student->index_no }}"
+                                data-grade="{{ $student->grade }}"
+                                @selected(old('student_id') == $student->id)
+                            >
+                                {{ $student->student_name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <input type="text" name="index_no" id="index_no" class="form-control" placeholder="Index No" required readonly>
+                    <input type="text" name="index_no" id="index_no" class="form-control" placeholder="Index No" readonly>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="grade" id="grade" class="form-control" placeholder="Grade" readonly>
                 </div>
                 <div class="col-md-2">
                     <input type="date" name="attendance_date" class="form-control" value="{{ now()->format('Y-m-d') }}" required>
@@ -33,11 +43,18 @@
                     <button class="btn btn-primary w-100">Save</button>
                 </div>
                 <script>
-                    document.getElementById('student_id').addEventListener('change', function() {
-                        const selectedOption = this.options[this.selectedIndex];
-                        const indexNo = selectedOption.getAttribute('data-index');
-                        document.getElementById('index_no').value = indexNo || '';
-                    });
+                    const studentSelect = document.getElementById('student_id');
+                    const indexInput = document.getElementById('index_no');
+                    const gradeInput = document.getElementById('grade');
+
+                    function syncStudentFields() {
+                        const selectedOption = studentSelect.options[studentSelect.selectedIndex];
+                        indexInput.value = selectedOption?.getAttribute('data-index') || '';
+                        gradeInput.value = selectedOption?.getAttribute('data-grade') || '';
+                    }
+
+                    studentSelect.addEventListener('change', syncStudentFields);
+                    syncStudentFields();
                 </script>
             </form>
         </div>
