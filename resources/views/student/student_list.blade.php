@@ -41,7 +41,7 @@ Admin
                         <td>{{ $students->firstItem() + $loop->index }}</td>
                         <td>
                             @if($student->photo_path)
-                                <img src="{{ asset('storage/'.$student->photo_path) }}" alt="photo" width="40" height="40" class="rounded-circle" />
+                                <img src="/{{ $student->photo_path }}" alt="photo" width="40" height="40" class="rounded-circle" />
                             @else
                                 <span class="text-muted">No photo</span>
                             @endif

@@ -86,7 +86,10 @@ class StudentController extends Controller
         unset($payload['password'], $payload['password_confirmation']);
 
         if ($request->hasFile('photo')) {
-            $payload['photo_path'] = $request->file('photo')->store('students/photos', 'public');
+            $file = $request->file('photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/img/students'), $filename);
+            $payload['photo_path'] = 'assets/img/students/' . $filename;
         }
 
         $student = DB::transaction(function () use ($payload, $password) {
@@ -122,10 +125,15 @@ class StudentController extends Controller
         unset($payload['password'], $payload['password_confirmation']);
 
         if ($request->hasFile('photo')) {
-            if ($student->photo_path) {
-                Storage::disk('public')->delete($student->photo_path);
+            // Delete old photo
+            if ($student->photo_path && file_exists(public_path($student->photo_path))) {
+                unlink(public_path($student->photo_path));
             }
-            $payload['photo_path'] = $request->file('photo')->store('students/photos', 'public');
+            // Save new photo
+            $file = $request->file('photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/img/students'), $filename);
+            $payload['photo_path'] = 'assets/img/students/' . $filename;
         }
 
         DB::transaction(function () use ($student, $payload, $password) {
@@ -156,6 +164,11 @@ class StudentController extends Controller
 
     public function destroy(Student $student): RedirectResponse
     {
+        // Delete photo if exists
+        if ($student->photo_path && file_exists(public_path($student->photo_path))) {
+            unlink(public_path($student->photo_path));
+        }
+
         $userId = $student->user_id;
         $student->forceDelete();
         

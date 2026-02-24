@@ -9,27 +9,15 @@
             <form method="POST" action="{{ route('admin.attendance.store') }}" class="row g-2">
                 @csrf
                 <div class="col-md-3">
-                    <select name="student_id" class="form-select" required>
+                    <select name="student_id" id="student_id" class="form-select" required>
                         <option value="">Student</option>
                         @foreach($students as $student)
-                            <option value="{{ $student->id }}">{{ $student->student_name }}</option>
+                            <option value="{{ $student->id }}" data-index="{{ $student->index_no }}">{{ $student->student_name }} ({{ $student->index_no }})</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-3">
-                    <select name="class_room_id" class="form-select" required>
-                        <option value="">Class</option>
-                        <option value="1"> Grade 06 </option>
-                        <option value="2">Grade 07 </option>
-                        <option value="3"> Grade 08 </option>
-                        <option value="4"> Grade 09 </option>
-                        <option value="4"> O/L </option>
-                        <option value="4"> A/L </option>
-
-                        @foreach($classRooms as $classRoom)
-                            <option value="{{ $classRoom->id }}">{{ $classRoom->name }} {{ $classRoom->section }}</option>
-                        @endforeach
-                    </select>
+                <div class="col-md-2">
+                    <input type="text" name="index_no" id="index_no" class="form-control" placeholder="Index No" required readonly>
                 </div>
                 <div class="col-md-2">
                     <input type="date" name="attendance_date" class="form-control" value="{{ now()->format('Y-m-d') }}" required>
@@ -41,9 +29,16 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <button class="btn btn-primary w-100">Save</button>
                 </div>
+                <script>
+                    document.getElementById('student_id').addEventListener('change', function() {
+                        const selectedOption = this.options[this.selectedIndex];
+                        const indexNo = selectedOption.getAttribute('data-index');
+                        document.getElementById('index_no').value = indexNo || '';
+                    });
+                </script>
             </form>
         </div>
     </div>
@@ -51,13 +46,13 @@
     <div class="card">
         <div class="card-body">
             <table class="table table-bordered">
-                <thead><tr><th>Date</th><th>Student</th><th>Class</th><th>Status</th></tr></thead>
+                <thead><tr><th>Date</th><th>Student</th><th>Grade</th><th>Status</th></tr></thead>
                 <tbody>
                 @forelse($attendances as $attendance)
                     <tr>
                         <td>{{ $attendance->attendance_date->format('d M Y') }}</td>
                         <td>{{ $attendance->student?->student_name }}</td>
-                        <td>{{ $attendance->classRoom?->name }} {{ $attendance->classRoom?->section }}</td>
+                        <td>{{ $attendance->student?->grade }}</td>
                         <td><span class="badge bg-secondary">{{ ucfirst($attendance->status) }}</span></td>
                     </tr>
                 @empty
