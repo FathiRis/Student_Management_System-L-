@@ -21,7 +21,7 @@ Admin
             <div class="row">
                 <div class="col-md-3">
                     @if($student->photo_path)
-                        <img src="{{ asset('storage/'.$student->photo_path) }}" class="img-fluid rounded" alt="photo" />
+                        <img src="/{{ $student->photo_path }}" class="img-fluid rounded" alt="photo" />
                     @endif
                 </div>
                 <div class="col-md-9">

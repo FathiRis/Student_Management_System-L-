@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('student_name');
             $table->string('mobile_no');
             $table->string('email')->nullable();
-            $table->string('course');
+            $table->string('grade');
             $table->string('index_no')->nullable();
             $table->date('dob')->nullable();
             $table->string('gender')->nullable();

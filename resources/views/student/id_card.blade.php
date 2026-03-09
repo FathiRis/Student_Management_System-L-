@@ -15,7 +15,7 @@ Admin
         <div class="card-body">
             <h5 class="mb-3">Student ID Card</h5>
             @if($student->photo_path)
-                <img src="{{ asset('storage/'.$student->photo_path) }}" alt="photo" width="90" class="rounded mb-3" />
+                <img src="/{{ $student->photo_path }}" alt="photo" width="90" class="rounded mb-3" />
             @endif
             <p class="mb-1"><strong>Name:</strong> {{ $student->student_name }}</p>
             <p class="mb-1"><strong>Index No:</strong> {{ $student->index_no ?: '-' }}</p>

@@ -85,7 +85,7 @@ Admin
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Course</th>
+                            <th>Grade</th>
                             <th>Date</th>
                         </tr>
                         </thead>
@@ -93,7 +93,7 @@ Admin
                         @forelse($recentStudentRegistrations as $student)
                             <tr>
                                 <td>{{ $student->student_name }}</td>
-                                <td>{{ $student->course }}</td>
+                                <td>{{ $student->grade }}</td>
                                 <td>{{ $student->created_at->format('d M Y') }}</td>
                             </tr>
                         @empty

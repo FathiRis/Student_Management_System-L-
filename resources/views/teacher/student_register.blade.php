@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label>Select Grade</label>
-                                <select class="form-control" name="course">
+                                <select class="form-control" name="grade">
                                     <option selected> Grade 06</option>
                                     <option> Grade 07</option>
                                     <option> Grade 08</option>
